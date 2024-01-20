@@ -19,21 +19,20 @@ Run the installer and follow the on-screen instructions.
 Install pip:
 
 Check if pip is already installed by running the following command in the terminal:
-bash
-Copy code
+
 pip --version
+
 If not installed, download get-pip.py from https://bootstrap.pypa.io/get-pip.py.
 Run the following command in the terminal to install pip:
-bash
-Copy code
+
 python get-pip.py
+
 Install Divtt dependencies:
 
 Use the following command in the terminal to install the required packages for Divtt:
-bash
-Copy code
-pip install requests random2 urllib3 beautifulsoup4 selenium
-Usage
+
+pip install requests random2 urllib3 beautifulsoup4 selenium Usage
+
 Divtt's primary purpose is to extract phone numbers, email IDs, and links from a given URL. Users can customize the extraction process by specifying the type of data, output format, and quantity.
 
 License:
