@@ -9,6 +9,9 @@ Description:
 Divtt simplifies web scraping by guiding users through the extraction process. It prompts the user for a target URL and allows them to specify whether to extract emails, phone numbers, or links. In cases where the user doesn't provide specific information, Divtt defaults to extracting all available data. The program then prompts for the desired output format and quantity. If no quantity is specified, Divtt extracts all possible data. The extracted data is saved in a dedicated folder at the location of the program, enhancing organization.
 
 Installation:
+
+NOTE: YOU NEED TO INSTALL THE GOOGLE DRIVE OF THE SAME OR COLSEST VER AND AFTER EXTRACT IT ADD THE PATH OF THAT IN THE GDRIVE VARIABLE
+
 Before using Divtt, ensure you have Python and pip installed on your computer. If not, follow the steps below:
 
 Install Python:
