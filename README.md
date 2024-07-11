@@ -1,42 +1,67 @@
-# Divtt
+# Divtt-Web_Scraper
 
-Divtt - Web Scraper
+## Description
+Divtt is a powerful web scraping tool built in Python. It's designed to extract phone numbers, images, and potentially emails from websites. This tool can be particularly useful for gathering data to train machine learning models, especially for image classification tasks.
 
-Brief Description:
-Divtt is a powerful web scraper designed to extract emails, phone numbers, and links from any given URL. It offers the flexibility to save the extracted data in various user-selected formats. With the added feature of proxy support, Divtt ensures anonymity and efficient data retrieval. Additionally, it can decode encoded URLs, providing users with human-readable links.
+## Features
+- Extracts phone numbers from web pages
+- Downloads images from specified websites
+- Customizable number of items to extract
+- Saves extracted data in a user-specified folder
+- Flexible output format (e.g., txt, csv)
 
-Description:
-Divtt simplifies web scraping by guiding users through the extraction process. It prompts the user for a target URL and allows them to specify whether to extract emails, phone numbers, or links. In cases where the user doesn't provide specific information, Divtt defaults to extracting all available data. The program then prompts for the desired output format and quantity. If no quantity is specified, Divtt extracts all possible data. The extracted data is saved in a dedicated folder at the location of the program, enhancing organization.
+## Technologies Used
+- Python
+- Requests library
+- Regular Expressions (re)
+- BeautifulSoup4
+- urllib
 
-Installation:
+## Installation
+1. Clone the repository:
+   ```
+   git clone https://github.com/DivyanshTiwari20/Divtt.git
+   ```
+   Or download the ZIP file from the [GitHub repository](https://github.com/DivyanshTiwari20/Divtt.git).
 
-NOTE: YOU NEED TO INSTALL THE GOOGLE DRIVE OF THE SAME OR COLSEST VER AND AFTER EXTRACT IT ADD THE PATH OF THAT IN THE GDRIVE VARIABLE
+2. Install the required dependencies:
+   ```
+   pip install requests beautifulsoup4
+   ```
 
-Before using Divtt, ensure you have Python and pip installed on your computer. If not, follow the steps below:
+## Usage
+To use Divtt, follow these steps:
 
-Install Python:
+1. Run the script.
+2. Enter the URL of the site you want to scrape when prompted.
+3. Specify the number of phone numbers and images you want to extract. Press Enter without a number to extract all available images.
+4. Provide a name for the folder where downloaded files should be saved.
+5. Specify the desired file extension for saving data (e.g., txt, csv).
 
-Visit Python's official website.
-Download the latest version of Python for your operating system.
-Run the installer and follow the on-screen instructions.
-Install pip:
+## Example
+```
+python divtt.py
+Enter the URL to scrape: https://example.com
+Number of phone numbers to extract (press Enter for all): 10
+Number of images to download (press Enter for all): 
+Folder name for downloads: example_data
+File extension for saving data: txt
+```
 
-Check if pip is already installed by running the following command in the terminal:
+## Target Audience
+Divtt can be used by anyone interested in web scraping, particularly:
+- Data scientists and machine learning engineers gathering training data
+- Researchers collecting web data
+- Developers learning about web scraping techniques
 
-pip --version
+## System Requirements
+Divtt is designed to run on any system with Python installed. It doesn't require high-end hardware.
 
-If not installed, download get-pip.py from https://bootstrap.pypa.io/get-pip.py.
-Run the following command in the terminal to install pip:
+## Contribution
+Feedback and contributions are welcome. Please feel free to submit issues or pull requests to the GitHub repository.
 
-python get-pip.py
+## Disclaimer
+Ensure you have the right to scrape content from websites before using this tool. Always respect robots.txt files and website terms of service.
 
-Install Divtt dependencies:
-
-Use the following command in the terminal to install the required packages for Divtt:
-
-pip install requests random2 urllib3 beautifulsoup4 selenium Usage
-
-Divtt's primary purpose is to extract phone numbers, email IDs, and links from a given URL. Users can customize the extraction process by specifying the type of data, output format, and quantity.
-
-License:
-Divtt is the solo creation of the author. The program is developed independently, leveraging the creator's skills and expertise
+## Future Updates
+The creator is open to feedback and plans to update the tool in the future. Stay tuned for new features and improvements!
