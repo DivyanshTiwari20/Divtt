@@ -64,4 +64,4 @@ Feedback and contributions are welcome. Please feel free to submit issues or pul
 Ensure you have the right to scrape content from websites before using this tool. Always respect robots.txt files and website terms of service.
 
 ## Future Updates
-The creator is open to feedback and plans to update the tool in the future. Stay tuned for new features and improvements!
+I am open to feedback and plans to update the tool in the future. Stay tuned for new features and improvements!
