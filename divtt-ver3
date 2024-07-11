@@ -1,0 +1,105 @@
+import requests
+import re
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+import os
+
+def get_user_input(prompt):
+    user_input = input(prompt)
+    return user_input.strip() if user_input else None
+
+def extract_phone_numbers(text):
+    pattern = r'\b(?:\+\d{1,2}\s?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b'
+    return re.findall(pattern, text)
+
+def extract_emails(text):
+    pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    return re.findall(pattern, text)
+
+def extract_images(soup, base_url):
+    images = []
+    for img in soup.find_all('img', src=True):
+        img_url = urljoin(base_url, img['src'])
+        images.append(img_url)
+    return images
+
+def download_image(url, folder_path):
+    try:
+        response = requests.get(url, stream=True)
+        if response.status_code == 200:
+            file_name = url.split('/')[-1]
+            file_path = os.path.join(folder_path, file_name)
+            with open(file_path, 'wb') as file:
+                for chunk in response.iter_content(1024):
+                    file.write(chunk)
+            return file_path
+    except Exception as e:
+        print(f"Error downloading image {url}: {e}")
+    return None
+
+def save_to_file(data, folder_path, file_name, extension):
+    file_path = os.path.join(folder_path, f"{file_name}.{extension}")
+    with open(file_path, 'w', encoding='utf-8') as file:
+        for item in data:
+            file.write(f"{item}\n")
+    return file_path
+
+def create_folder_structure(base_folder):
+    folders = ['images', 'emails', 'phone_numbers']
+    for folder in folders:
+        os.makedirs(os.path.join(base_folder, folder), exist_ok=True)
+
+def scrape_website(url, num_phones, num_emails, num_images, base_folder, file_extension):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        text = soup.get_text()
+
+        phones = extract_phone_numbers(text)
+        emails = extract_emails(text)
+        images = extract_images(soup, url)
+
+        phones = phones[:num_phones] if num_phones is not None else phones
+        emails = emails[:num_emails] if num_emails is not None else emails
+        images = images[:num_images] if num_images is not None else images
+
+        # Save phone numbers
+        phone_file = save_to_file(phones, os.path.join(base_folder, 'phone_numbers'), 'phone_numbers', file_extension)
+        print(f"Phone numbers saved to: {phone_file}")
+
+        # Save emails
+        email_file = save_to_file(emails, os.path.join(base_folder, 'emails'), 'emails', file_extension)
+        print(f"Emails saved to: {email_file}")
+
+        # Download images
+        image_folder = os.path.join(base_folder, 'images')
+        for img_url in images:
+            img_path = download_image(img_url, image_folder)
+            if img_path:
+                print(f"Image downloaded to: {img_path}")
+
+    except requests.RequestException as e:
+        print(f"An error occurred while scraping the website: {e}")
+
+def main():
+    url = input("Enter the URL of the website to scrape: ")
+    
+    num_phones = get_user_input("How many phone numbers do you want to extract? (Press Enter for all): ")
+    num_emails = get_user_input("How many emails do you want to extract? (Press Enter for all): ")
+    num_images = get_user_input("How many images do you want to extract? (Press Enter for all): ")
+
+    num_phones = int(num_phones) if num_phones is not None else None
+    num_emails = int(num_emails) if num_emails is not None else None
+    num_images = int(num_images) if num_images is not None else None
+
+    base_folder_name = input("Enter the name for the main folder: ")
+    base_folder_path = os.path.join(os.getcwd(), base_folder_name)
+    create_folder_structure(base_folder_path)
+
+    file_extension = input("Enter the file extension for saving emails and phone numbers (e.g., txt, csv): ")
+
+    scrape_website(url, num_phones, num_emails, num_images, base_folder_path, file_extension)
+
+if __name__ == "__main__":
+    main()
